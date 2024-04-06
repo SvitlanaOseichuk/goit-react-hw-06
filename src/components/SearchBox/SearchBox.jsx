@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { VscSearch } from 'react-icons/vsc';
 import css from './SearchBox.module.css'
 import { useDispatch } from 'react-redux';
@@ -6,15 +6,17 @@ import { changeFilter } from '../../redux/filtersSlice';
 
 
 
-const SearchBox = ({value}) => {
+const SearchBox = () => {
 
-const dispatch = useDispatch();
+  const [value, setValue] = useState('');
+  const dispatch = useDispatch();
 
 
-const handleFilter = (event) => {
-  const { value } = event.target;
-  dispatch(changeFilter(value));
-};
+  const handleFilter = (event) => {
+    const  value  = event.target.value;
+    setValue(value);
+    dispatch(changeFilter(value));
+  };
 
 
   return (
