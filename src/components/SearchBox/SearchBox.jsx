@@ -1,8 +1,22 @@
 import React from 'react'
 import { VscSearch } from 'react-icons/vsc';
 import css from './SearchBox.module.css'
+import { useDispatch } from 'react-redux';
+import { changeFilter } from '../../redux/filtersSlice';
 
-const SearchBox = ({value, onFilter}) => {
+
+
+const SearchBox = ({value}) => {
+
+const dispatch = useDispatch();
+
+
+const handleFilter = (event) => {
+  const { value } = event.target;
+  dispatch(changeFilter(value));
+};
+
+
   return (
     <>
     <div className={css.SearchBox}>
@@ -14,7 +28,8 @@ const SearchBox = ({value, onFilter}) => {
         <input
           type='text' 
           value={value}
-          onChange={(evt) => onFilter(evt.target.value)}
+          onChange={handleFilter}
+
           className={css.SearchContImput} 
          />
       </label> 

@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import css from './contactForm.module.css'
 import { IoMdContact } from 'react-icons/io';
 import { BsFillTelephoneFill } from 'react-icons/bs';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import * as Yup from 'yup';
+import { useDispatch } from 'react-redux';
+import { addContact } from '../../redux/contactsSlice';
 
 
 const ContactFormSchema = Yup.object().shape({
@@ -28,12 +30,16 @@ const INITIAL_FORM_VALUES = {
 }
 
 
-const ContactForm = ({ onAddNewContact }) => {
+const ContactForm = () => {
+
+  const dispatch = useDispatch();
 
   const handleSubmit = (values, formActions) => {
-    onAddNewContact(values);
+    const { name, number } = values;
+    dispatch(addContact({ name, number }));
     formActions.resetForm();
  }
+
 
 
   return(

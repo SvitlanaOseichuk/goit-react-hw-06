@@ -2,10 +2,20 @@ import React from 'react'
 import css from './Contact.module.css'
 import { IoMdContact } from "react-icons/io";
 import { BsFillTelephoneFill } from "react-icons/bs";
+import { useDispatch } from 'react-redux';
+import { deleteContact } from '../../redux/contactsSlice';
 
-const Contact = ({data: {id, name, number}, onDelete}) => {
+const Contact = ({data: {id, name, number}}) => {
+
+  const dispatch = useDispatch();
+
+  const handleDelete = () => {
+    dispatch(deleteContact(id))
+  }
+
   return (
     <div className={css.contact}>
+
       <h2 className={css.contactName}>
         <IoMdContact className={css.telIcon}/>
         {name}
@@ -16,7 +26,8 @@ const Contact = ({data: {id, name, number}, onDelete}) => {
         {number}
       </p>
 
-      <button onClick={()=>{onDelete(id)}}>Delete</button>
+      <button onClick={handleDelete}>Delete</button>
+      
     </div>
   )
 }
